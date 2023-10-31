@@ -25,15 +25,15 @@ class _GamePlayScreenState extends State<GamePlayScreen> {
     String robotChoicePath = '';
     switch (robotChoices) {
       case "Rock":
-        robotChoicePath = "assets/images/rock_btn2.png";
+        robotChoicePath = "assets/rock_btn2.png";
         break;
 
       case "Paper":
-        robotChoicePath = "assets/images/paper_btn2.png";
+        robotChoicePath = "assets/paper_btn2.png";
         break;
 
       case "Scissors":
-        robotChoicePath = "assets/images/scisor_btn2.png";
+        robotChoicePath = "assets/scisor_btn2.png";
         break;
 
       default:
@@ -43,15 +43,15 @@ class _GamePlayScreenState extends State<GamePlayScreen> {
     String? playerChoice;
     switch (widget.gameChoice.type) {
       case "Rock":
-        playerChoice = "assets/images/rock_btn2.png";
+        playerChoice = "assets/rock_btn2.png";
         break;
 
       case "Paper":
-        playerChoice = "assets/images/paper_btn2.png";
+        playerChoice = "assets/paper_btn2.png";
         break;
 
       case "Scissors":
-        playerChoice = "assets/images/scisor_btn2.png";
+        playerChoice = "assets/scisor_btn2.png";
         break;
 
       default:
@@ -64,198 +64,179 @@ class _GamePlayScreenState extends State<GamePlayScreen> {
         GamePlayController.score++;
       });
     }
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 30.h, left: 5.w),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const GameScreen()));
-                        },
-                        child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Image.asset(
-                              'assets/icons/arrow-left-circle.png',
-                              height: 45.h,
-                              width: 45.h,
-                            ))),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 30.h, left: 5.w),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const GameScreen()));
+                          },
+                          child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Image.asset(
+                                'assets/arrow-left-circle.png',
+                                height: 45.h,
+                                width: 45.h,
+                              ))),
 
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.15),
-                    // buildHeader('Game Play', fontSize: 32.sp),
-                  ],
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.15),
+                      // buildHeader('Game Play', fontSize: 32.sp),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 20.h),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20.w),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 4,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 3.0),
-                        borderRadius: BorderRadius.circular(10),
+                SizedBox(height: 20.h),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.w),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 3),
                       ),
-                      child: Row(
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 3.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'SCORE',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: 'Lato'),
+                              ),
+                              Text(
+                                '${GamePlayController.score}',
+                                style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: 'Lato'),
+                              )
+                            ]),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 300.h,
+                        child: Center(
+                            child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Hero(
+                                    tag: "${widget.gameChoice.type}",
+                                    child: gamePlayButton(
+                                        () => null, playerChoice!, btnWidth)),
+                                Text(
+                                  'You',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: 'Lato'),
+                                )
+                              ],
+                            ),
                             Text(
-                              'SCORE',
+                              'VS',
                               style: TextStyle(
-                                  color: Colors.red,
+                                  color: Colors.yellow,
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w900,
                                   fontFamily: 'Lato'),
                             ),
-                            Text(
-                              '${GamePlayController.score}',
-                              style: TextStyle(
-                                  color: Colors.blueAccent,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w900,
-                                  fontFamily: 'Lato'),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                gamePlayButton(
+                                    () => null, robotChoicePath, btnWidth),
+                                Text(
+                                  'Opponent',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: 'Lato'),
+                                )
+                              ],
                             )
-                          ]),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 300.h,
-                      child: Center(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Hero(
-                                  tag: "${widget.gameChoice.type}",
-                                  child: gamePlayButton(
-                                      () => null, playerChoice!, btnWidth)),
-                              Text(
-                                'You',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: 'Lato'),
-                              )
-                            ],
-                          ),
-                          Text(
-                            'VS',
-                            style: TextStyle(
-                                color: Colors.yellow,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'Lato'),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              gamePlayButton(
-                                  () => null, robotChoicePath, btnWidth),
-                              Text(
-                                'Opponent',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: 'Lato'),
-                              )
-                            ],
-                          )
-                        ],
-                      )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 50.h),
-                      child: Text(
-                        "${Choices.gameRules[widget.gameChoice.type]![robotChoices]}",
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 30.sp,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: 'Lato'),
+                          ],
+                        )),
                       ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: RawMaterialButton(
-                        splashColor: Colors.blueGrey,
-                        fillColor: Colors.black,
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const GameScreen()));
-                        },
-                        padding: const EdgeInsets.all(16),
-                        shape: const StadiumBorder(
-                          side: BorderSide(
-                            color: Colors.blueGrey,
-                            width: 0.0,
-                          ),
-                        ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 50.h),
                         child: Text(
-                          'Play Again',
+                          "${Choices.gameRules[widget.gameChoice.type]![robotChoices]}",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.sp,
+                              color: Colors.red,
+                              fontSize: 30.sp,
                               fontWeight: FontWeight.w900,
                               fontFamily: 'Lato'),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10.h),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: RawMaterialButton(
-                    //     onPressed: () {},
-                    //     padding: const EdgeInsets.all(16),
-                    //     shape: const StadiumBorder(
-                    //       side: BorderSide(
-                    //         color: Colors.black,
-                    //         width: 3.0,
-                    //       ),
-                    //     ),
-                    //     child: Text(
-                    //       'Rules',
-                    //       style: TextStyle(
-                    //           color: AppColors.secondary_color,
-                    //           fontSize: 20.sp,
-                    //           fontWeight: FontWeight.w900,
-                    //           fontFamily: 'Lato'),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
+                      SizedBox(
+                        width: double.infinity,
+                        child: RawMaterialButton(
+                          splashColor: Colors.blueGrey,
+                          fillColor: Colors.black,
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const GameScreen()));
+                          },
+                          padding: const EdgeInsets.all(16),
+                          shape: const StadiumBorder(
+                            side: BorderSide(
+                              color: Colors.blueGrey,
+                              width: 0.0,
+                            ),
+                          ),
+                          child: Text(
+                            'Play Again',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: 'Lato'),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
